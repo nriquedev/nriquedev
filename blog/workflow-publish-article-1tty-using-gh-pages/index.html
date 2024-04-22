@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" type="text/css"  href="/assets/css/ep-styles.css"> 
+<script src="https://kit.fontawesome.com/880501a14b.js" crossorigin="anonymous"></script>
+<link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+<title>Workflow to publish an article in 11ty using GH pages</title>
+
+
+  </head>
+
+  <body>
+    <div class="p-2
+                p-sm-3
+                p-md-4
+                mb-2
+                mb-sm-4
+                bg-light
+                shadow-sm
+                ">
+      <div class="row 
+            gx-1
+            gx-md-3
+            text-lg-center
+            mb-4
+            ">
+    
+    <div class="col-4
+                col-lg-12
+                p-3
+                ">
+      <img class="img-fluid
+                  img-thumbnail
+                  rounded-3
+                  shadow
+                  " 
+           src="/assets/images/profile-pic-250x250.png" 
+           alt="Header Image">
+    </div>
+    
+    <div class="col
+                align-self-end
+                p-3
+                ">
+      <h1 class="
+                my-0
+                h3
+                ">
+                Enrique
+      </h1>
+      <h2 class="
+                h5
+                mt-0
+                
+                ">
+        Documenting (almost) everything
+      </h2>
+      
+      <span class="mt-2">
+      
+      <a class="link-secondary 
+                link-offset-2 
+                link-underline-opacity-0 
+                link-opacity-75-hover
+                link-underline-opacity-25-hover
+                pe-2
+                "
+                href="https://github.com/nriquedev"><i class="fa-brands fa-github fa-xl"></i></a>
+
+      <a class="link-secondary 
+                link-offset-2 
+                link-underline-opacity-0 
+                link-opacity-75-hover
+                link-underline-opacity-25-hover
+                pe-2
+                "
+                href="https://www.linkedin.com/in/enriquepastrana/"><i class="fa-brands fa-linkedin  fa-xl"></i></a>
+
+      <a class="link-secondary 
+                link-offset-2 
+                link-underline-opacity-0 
+                link-opacity-75-hover
+                link-underline-opacity-25-hover
+                pe-2
+                "
+                href="https://www.instagram.com/enrique.cedor/"><i class="fa-brands fa-instagram  fa-xl"></i></a>
+
+      </span>
+    
+    </div>
+
+</div>
+
+    </div>
+    <div class="container mt-3 mt-md-5">
+      <div class="row align-items-start">
+        
+        <div class="col col-md-2 col-lg-3 ep-sticky-bottom-mobile text-end ep-nav-mt">
+          <nav class="nav 
+            flex-md-column
+            inconsolata
+            "><a class="  nav-link 
+                        
+                    
+                    " 
+            href="/"> 
+              
+            Home
+        
+        </a><a class="  nav-link 
+                        
+                    
+                    " 
+            href="/about/"> 
+              
+            About
+        
+        </a><a class="  nav-link 
+                        
+                    
+                    " 
+            href="/projects/"> 
+              
+            Projects
+        
+        </a></nav>
+        </div>
+
+        
+
+
+        <div class="ep-content col-12 col-md-10 col-lg-9">
+          <div class="mb-6">
+            <h2 class="h1 border-bottom" >Workflow to publish an article in 11ty using GH pages </h2>
+            
+              
+              <h3 class="h6">Apr 22, 2024</h3>
+              
+                <a href="/tags/11ty" class="link-secondary " > 
+                  <span class="badge rounded text-bg-secondary px-2 me-2"> 11ty  </span>
+                </a></div>
+          
+          <p>In this article I will explain the worflow I used to publish a post in this site. This will go from creating the draft, reviewing the content, set it ready to publish and finally deploy it to Github pages. The general process is to maintain a branch dedicated to posts and have them there until they are published, this is to merge this posts-drafts branch to the main which will make the post to appear in the live site.</p>
+<p>Each article file will be stored in a folder along with the images or any other resouce to be used in the article.</p>
+<p>
+                <img class="img-fluid
+                            mx-auto
+                            d-block
+                            img-thumbnail
+                            rounded-4
+                            shadow
+                            "
+                    src="001-posts-and-folders.png" 
+                    alt="Directory structure" loading="lazy" /></p>
+<p>I decided to use this approach just because is easier to link to images without fighting with relative paths and possible 404 errors, etc.</p>
+<p>The front matter in each md file will include the following info:</p>
+<ul>
+<li>title: The title of the publication</li>
+<li>tags: Will be use to set the type of publication. In my case it will be 'posts' or 'pages'</li>
+<li>publictags: Set the different tags to classify each post</li>
+<li>date: Publication date</li>
+<li>draft: Set to 'true' or 'false'. This is used to determine if the post is still in draft state or ready to be published.</li>
+</ul>
+<p>To make things easier I have created a folder with a random name and an empty post to use it as a template. This post only contains the front matter. This way I just need to copy and paste the folder, change the name of the files and set the correct values in the front matter. No need to create anything from scratch.</p>
+<p>Initially the 'draft' field will be set to 'true' and the 'date' field will be set to a future day (in my implementation the date will be used to determine if the post will be shown or not in the list of posts). Once all this is done, let's go with the publishing workflow.</p>
+<p>As I said in the beginning, I'm using GH Pages to host the site and publish the posts. In general, the publication will consist in creating a branch for every article. Once the article is done, merge this branch to the 'posts' branch and, once the article is reviewed and everything is correct, merge the post branch with the 'main' branch in the GH repository. This will cause the article to go live in the site. This in details below.</p>
+<p>To publish a post in GH Pages, I have created a branch called 'posts'. In this branch I will be creating several branches, each for each different article or draft that is on process.</p>
+<pre><code>
+
+        draft-001 ___... draft002 _____...  
+     posts ______/_______________/_____...
+main  ____/____________________________...
+
+
+</code></pre>
+<p>As a convention, I decided to add the prefix 'draft-' to the name of the folder and to the name of the file. This way I can identify if a specific article is a draft just looking at the folder, no need to open the file and check the 'draft' field in the frontmatter.</p>
+<p>Once the article is finished in its own branch, the steps I follow are:</p>
+<ol>
+<li>Rename the directory of the article and remove the prefix 'draft-'</li>
+<li>Rename the article file and also remove the prefix 'draft-'</li>
+<li>Update the 'date' field in the front matter</li>
+<li>Set the 'draft' field to 'false' in the front matter</li>
+</ol>
+<p>At this point the article is ready to be published. I will do a Pull Request to the branch 'posts' to review the article and propose some changes if needed. If everything is ok, the article branch will be merged with the 'posts' branch and proceed to remove the article branch both locally and in the corresponding remote.</p>
+<p>The last step will be to merge the 'posts' branch with the 'main' branch so the artivle can be published. A Pull Request done to the 'main' branch will have the article published to the site.</p>
+<p>One of the advantages of keeping this 'posts' branch and individual branches for each draft is that I can schedule Pull Requests to be done periodically (i.e. each Friday). Everything in the 'posts' branch will be published after the merge is done.</p>
+
+
+
+        </div>
+        
+      </div> 
+    </div> 
+  </body>
+</html>
